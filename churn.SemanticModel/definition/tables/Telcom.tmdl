@@ -1,0 +1,259 @@
+table Telcom
+	lineageTag: e5b8ad3f-c3aa-4844-8090-a8a5aae990e3
+
+	column customerID
+		dataType: string
+		lineageTag: 83a16d81-046e-4407-b6c3-cac0d684069f
+		summarizeBy: none
+		sourceColumn: customerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: fead57f5-a6f0-45ac-aae0-88a30c4658b5
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column SeniorCitizen
+		dataType: int64
+		formatString: 0
+		lineageTag: 18ad6470-913f-4376-8b08-40b6589cabff
+		summarizeBy: sum
+		sourceColumn: SeniorCitizen
+
+		annotation SummarizationSetBy = Automatic
+
+	column Partner
+		dataType: string
+		lineageTag: 6b5d6c7b-8a2b-4b48-a589-8ab511b90880
+		summarizeBy: none
+		sourceColumn: Partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dependents
+		dataType: string
+		lineageTag: 4a6a0c94-f2cd-4cce-90e2-0cb7c90717b4
+		summarizeBy: none
+		sourceColumn: Dependents
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure
+		dataType: int64
+		formatString: 0
+		lineageTag: 73cca10d-0626-4d88-9cad-656e19f0f2f6
+		summarizeBy: sum
+		sourceColumn: tenure
+
+		annotation SummarizationSetBy = Automatic
+
+	column PhoneService
+		dataType: string
+		lineageTag: 5f20e77d-b2c2-4888-b390-59a516af38c6
+		summarizeBy: none
+		sourceColumn: PhoneService
+
+		annotation SummarizationSetBy = Automatic
+
+	column MultipleLines
+		dataType: string
+		lineageTag: d707ea30-1591-45a0-80c6-0d9233715d39
+		summarizeBy: none
+		sourceColumn: MultipleLines
+
+		annotation SummarizationSetBy = Automatic
+
+	column InternetService
+		dataType: string
+		lineageTag: 05881c2f-8c1b-4e9a-8f5d-a80988ea21b1
+		summarizeBy: none
+		sourceColumn: InternetService
+
+		annotation SummarizationSetBy = Automatic
+
+	column OnlineSecurity
+		dataType: string
+		lineageTag: a982f8c9-a4c0-4af4-a1d6-e06a99f675ad
+		summarizeBy: none
+		sourceColumn: OnlineSecurity
+
+		annotation SummarizationSetBy = Automatic
+
+	column OnlineBackup
+		dataType: string
+		lineageTag: 42d395de-eabc-43c7-815d-b865c70e5ec4
+		summarizeBy: none
+		sourceColumn: OnlineBackup
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeviceProtection
+		dataType: string
+		lineageTag: 6d1f2081-f2da-40bf-aacd-772fc969fd0f
+		summarizeBy: none
+		sourceColumn: DeviceProtection
+
+		annotation SummarizationSetBy = Automatic
+
+	column TechSupport
+		dataType: string
+		lineageTag: 10182752-743b-4f34-8b56-85265a8d9b1b
+		summarizeBy: none
+		sourceColumn: TechSupport
+
+		annotation SummarizationSetBy = Automatic
+
+	column StreamingTV
+		dataType: string
+		lineageTag: c08baa1c-81d1-4e7f-91ff-4d9759c606b6
+		summarizeBy: none
+		sourceColumn: StreamingTV
+
+		annotation SummarizationSetBy = Automatic
+
+	column StreamingMovies
+		dataType: string
+		lineageTag: be9a277d-4ce8-4c6f-85cc-f43c39a38c51
+		summarizeBy: none
+		sourceColumn: StreamingMovies
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contract
+		dataType: string
+		lineageTag: d13a06a5-1f3d-4181-850a-bd4d367ec530
+		summarizeBy: none
+		sourceColumn: Contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaperlessBilling
+		dataType: string
+		lineageTag: 13a9c179-8ede-4fa0-ad3a-b71bef1769da
+		summarizeBy: none
+		sourceColumn: PaperlessBilling
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethod
+		dataType: string
+		lineageTag: e982eae3-15be-4ca9-9b3b-114a43b1e28e
+		summarizeBy: none
+		sourceColumn: PaymentMethod
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthlyCharges
+		dataType: double
+		lineageTag: 92155cc1-c030-4631-8c78-e5cbc6d1ca2e
+		summarizeBy: sum
+		sourceColumn: MonthlyCharges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalCharges
+		dataType: double
+		lineageTag: 4466fdfc-1ecb-41dc-85ac-20397e0f2f24
+		summarizeBy: sum
+		sourceColumn: TotalCharges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Churn
+		dataType: string
+		lineageTag: c1aab135-b072-40c2-8f91-f37ee3bcda77
+		summarizeBy: none
+		sourceColumn: Churn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tenure Group' =
+			
+			SWITCH(
+			    TRUE(),
+			    Telcom[tenure] <= 6, "0–6 Months",
+			    Telcom[tenure] <= 12, "7–12 Months",
+			    Telcom[tenure] <= 24, "13–24 Months",
+			    Telcom[tenure] <= 48, "25–48 Months",
+			    Telcom[tenure] <= 72, "49–72 Months",
+			    "Unknown"
+			)
+		lineageTag: b242a92e-38a3-4c1f-a62d-4c8cbf084afc
+		summarizeBy: none
+		sortByColumn: 'Tenure Group Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tenure Group Sort' =
+			
+			SWITCH(
+			    TRUE(),
+			    Telcom[tenure] <= 6, 1,
+			    Telcom[tenure] <= 12, 2,
+			    Telcom[tenure] <= 24, 3,
+			    Telcom[tenure] <= 48, 4,
+			    Telcom[tenure] <= 72, 5,
+			    6
+			)
+		isHidden
+		formatString: 0
+		lineageTag: 97fca332-9840-4d59-bdeb-f69d38d9f6d4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Monthly Charge Group' =
+			
+			SWITCH(
+			    TRUE(),
+			    'Telcom'[MonthlyCharges] < 30, "Under $30",
+			    'Telcom'[MonthlyCharges] < 60, "$30–$60",
+			    'Telcom'[MonthlyCharges] < 90, "$60–$90",
+			    "$90+"
+			)
+		lineageTag: 1c9c1b6c-f395-43c2-876b-232fd3510b39
+		summarizeBy: none
+		sortByColumn: 'Monthly Charge Group Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Monthly Charge Group Sort' =
+			
+			SWITCH(
+			    TRUE(),
+			    'Telcom'[MonthlyCharges] < 30, 1,
+			    'Telcom'[MonthlyCharges] < 60, 2,
+			    'Telcom'[MonthlyCharges] < 90, 3,
+			    4
+			)
+		isHidden
+		formatString: 0
+		lineageTag: f2c9f003-d592-4968-b7db-0389036c7334
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Telcom = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\JOEL\Downloads\customers\churn dashboard\Telcom-Customer-Churn.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "WA_Fn-UseC_-Telco-Customer-Chur", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"customerID", type text}, {"gender", type text}, {"SeniorCitizen", Int64.Type}, {"Partner", type text}, {"Dependents", type text}, {"tenure", Int64.Type}, {"PhoneService", type text}, {"MultipleLines", type text}, {"InternetService", type text}, {"OnlineSecurity", type text}, {"OnlineBackup", type text}, {"DeviceProtection", type text}, {"TechSupport", type text}, {"StreamingTV", type text}, {"StreamingMovies", type text}, {"Contract", type text}, {"PaperlessBilling", type text}, {"PaymentMethod", type text}, {"MonthlyCharges", type number}, {"TotalCharges", type number}, {"Churn", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed column type", each [TotalCharges] <> null and [TotalCharges] <> "")
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

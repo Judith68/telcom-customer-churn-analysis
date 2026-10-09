@@ -1,0 +1,22 @@
+# Power BI local files (rebuilt automatically, machine-specific)
+**/.pbi/
+*.pbit
+*.tmp
+*.bak
+*.autosave
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Office temporary files
+~$*
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/

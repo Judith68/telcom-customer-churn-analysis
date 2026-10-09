@@ -1,0 +1,40 @@
+DEFINE
+    MEASURE 'Key Measures'[Total Customers] = DISTINCTCOUNT('Telcom'[customerID])
+    MEASURE 'Key Measures'[Churned Customers] = CALCULATE([Total Customers],'Telcom'[Churn] = "Yes")
+    MEASURE 'Key Measures'[Churn Rate] = DIVIDE([Churned Customers],[Total Customers])
+    MEASURE 'Key Measures'[Retained Customers] = CALCULATE([Total Customers],'Telcom'[Churn] = "No")
+    MEASURE 'Key Measures'[Average Monthly Charge] = AVERAGE('Telcom'[MonthlyCharges])
+    MEASURE 'Key Measures'[Average Tenure] = AVERAGE('Telcom'[tenure])
+    MEASURE 'Key Measures'[Total Monthly Charge] = SUM('Telcom'[MonthlyCharges])
+    MEASURE 'Key Measures'[Total Charges] = SUM('Telcom'[TotalCharges])
+    MEASURE 'Key Measures'[Average Total Charges] = AVERAGE('Telcom'[TotalCharges])
+    MEASURE 'Key Measures'[Electronic Check Churn] = CALCULATE(
+    [Churn Rate],
+    'Telcom'[PaymentMethod] = "Electronic check"
+)
+    MEASURE 'Key Measures'[Fiber Optic Churn] = CALCULATE(
+    [Churn Rate],
+    'Telcom'[InternetService] = "Fiber optic"
+)
+    MEASURE 'Key Measures'[No Tech Support Churn] = CALCULATE(
+    [Churn Rate],
+    'Telcom'[TechSupport] = "No"
+)
+    MEASURE 'Key Measures'[Retention Rate] = DIVIDE([Retained Customers],[Total Customers])
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "Total Customers", [Total Customers],
+        "Churned Customers", [Churned Customers],
+        "Churn Rate", [Churn Rate],
+        "Retained Customers", [Retained Customers],
+        "Average Monthly Charge", [Average Monthly Charge],
+        "Average Tenure", [Average Tenure],
+        "Total Monthly Charge", [Total Monthly Charge],
+        "Total Charges", [Total Charges],
+        "Average Total Charges", [Average Total Charges],
+        "Electronic Check Churn", [Electronic Check Churn],
+        "Fiber Optic Churn", [Fiber Optic Churn],
+        "No Tech Support Churn", [No Tech Support Churn],
+        "Retention Rate", [Retention Rate]
+    )

@@ -1,0 +1,91 @@
+table 'Key Measures'
+	lineageTag: 8840936f-381b-4c9f-86d5-a72e97c1dc0c
+
+	measure 'Total Customers' = DISTINCTCOUNT('Telcom'[customerID])
+		formatString: #,0
+		lineageTag: 107f103f-6b5c-41a5-bce2-c675da12ec73
+
+	measure 'Churned Customers' = CALCULATE([Total Customers],'Telcom'[Churn] = "Yes")
+		formatString: #,0
+		lineageTag: 8692b75a-296b-4bd1-9a9b-50bf4a74eece
+
+	measure 'Churn Rate' = DIVIDE([Churned Customers],[Total Customers])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e0b0d2a5-fd76-411c-b54b-f48625ecee29
+
+	measure 'Retained Customers' = CALCULATE([Total Customers],'Telcom'[Churn] = "No")
+		formatString: #,0
+		lineageTag: c39dbf43-85a6-4a23-951a-ed6e4c8c0050
+
+	measure 'Average Monthly Charge' = AVERAGE('Telcom'[MonthlyCharges])
+		formatString: 0.00
+		lineageTag: 7246fcb2-5707-464e-818a-bf1b76d9371f
+
+	measure 'Average Tenure' = AVERAGE('Telcom'[tenure])
+		formatString: 0.0
+		lineageTag: 4e2a95e0-73a5-4f83-8424-450a966cebac
+
+	measure 'Total Monthly Charge' = SUM('Telcom'[MonthlyCharges])
+		formatString: #,0.00
+		lineageTag: b548bb41-27c0-492f-b7ea-579ec47d33d6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Charges' = SUM('Telcom'[TotalCharges])
+		formatString: #,0
+		lineageTag: b7d96628-bde8-4c40-a97b-ced018993d1d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Total Charges' = AVERAGE('Telcom'[TotalCharges])
+		formatString: #,0.00
+		lineageTag: 8f9fb08a-b75a-490c-bc98-36a60a056bbd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Electronic Check Churn' =
+			
+			CALCULATE(
+			    [Churn Rate],
+			    'Telcom'[PaymentMethod] = "Electronic check"
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0de559bd-74c2-47f2-ba7a-c63c74b9d2f7
+
+	measure 'Fiber Optic Churn' =
+			
+			CALCULATE(
+			    [Churn Rate],
+			    'Telcom'[InternetService] = "Fiber optic"
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b3f7c055-3427-41b1-9e94-ea4b33a56525
+
+	measure 'No Tech Support Churn' =
+			
+			CALCULATE(
+			    [Churn Rate],
+			    'Telcom'[TechSupport] = "No"
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 560e8d78-7c74-4d6c-a831-7f1ae4010354
+
+	measure 'Retention Rate' =
+			
+			DIVIDE([Retained Customers],[Total Customers])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 7a984333-6a5b-4ccd-ac4b-6884120cfeda
+
+	partition 'Key Measures' = m
+		mode: import
+		source =
+				let
+				  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Measure = _t]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Measure"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
